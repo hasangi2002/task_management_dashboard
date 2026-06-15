@@ -2,36 +2,44 @@ import { useEffect, useState } from "react";
 import { getTasks } from "../services/api";
 import TaskCard from "../components/TaskCard";
 import TaskForm from "../components/TaskForm";
-import Filters from "../components/Filters";
 
 export default function Tasks() {
   const [tasks, setTasks] = useState([]);
-  const [filter, setFilter] = useState("all");
+  const [editTask, setEditTask] = useState(null);
 
   const fetchTasks = async () => {
-    const res = await getTasks();
-    setTasks(res.data);
+    try {
+      const res = await getTasks();
+      setTasks(res.data);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   useEffect(() => {
     fetchTasks();
   }, []);
 
-  const filteredTasks =
-    filter === "all"
-      ? tasks
-      : tasks.filter((t) => t.status === filter);
-
   return (
     <div style={{ padding: "20px" }}>
-      <h1>Task Management Dashboard</h1>
+      <h1>🎬 Film Campaign Task Dashboard</h1>
 
-      <TaskForm refresh={fetchTasks} />
-      <Filters setFilter={setFilter} />
+      <TaskForm
+        refresh={fetchTasks}
+        editTask={editTask}
+        setEditTask={setEditTask}
+      />
 
-      {filteredTasks.map((task) => (
-        <TaskCard key={task._id} task={task} refresh={fetchTasks} />
-      ))}
+      <div>
+        {tasks.map((task) => (
+          <TaskCard
+            key={task._id}
+            task={task}
+            refresh={fetchTasks}
+            onEdit={setEditTask}
+          />
+        ))}
+      </div>
     </div>
   );
 }
