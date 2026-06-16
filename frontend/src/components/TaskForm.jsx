@@ -36,7 +36,7 @@ export default function TaskForm({ refresh, editTask, setEditTask }) {
       setForm({ title: "", description: "", status: "pending" });
       refresh();
     } catch (err) {
-      console.log(err);
+      console.log("FORM DATA SENT:", form);
     }
   };
 

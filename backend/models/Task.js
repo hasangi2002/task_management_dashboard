@@ -2,29 +2,18 @@ const mongoose = require("mongoose");
 
 const taskSchema = new mongoose.Schema(
   {
-    title: { type: String, required: true },
-    description: String,
-
-    platform: {
+    title: {
       type: String,
-      enum: ["Facebook", "Instagram", "TikTok", "YouTube"],
+      required: true,
     },
-
-    priority: {
+    description: {
       type: String,
-      enum: ["Low", "Medium", "High"],
-      default: "Medium",
+      required: true,
     },
-
     status: {
       type: String,
-      enum: ["To Do", "In Progress", "Completed"],
-      default: "To Do",
+      default: "pending",
     },
-
-    assignedTo: String,
-
-    dueDate: Date,
   },
   { timestamps: true }
 );

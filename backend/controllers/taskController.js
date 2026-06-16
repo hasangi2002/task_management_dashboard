@@ -3,13 +3,18 @@ const Task = require("../models/Task");
 // CREATE TASK
 const createTask = async (req, res) => {
   try {
+    console.log("BODY RECEIVED:", req.body);
+
     const task = await Task.create(req.body);
+
     res.status(201).json(task);
   } catch (error) {
+    console.log("🔥 BACKEND ERROR:", error.message);
+    console.log(error); // full error
+
     res.status(500).json({ message: error.message });
   }
 };
-
 // GET ALL TASKS
 const getTasks = async (req, res) => {
   try {
