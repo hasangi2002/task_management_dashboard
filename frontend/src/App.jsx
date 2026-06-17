@@ -1,21 +1,33 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Sidebar from "./components/Sidebar";
-import Dashboard from "./pages/Dashboard";
-import Tasks from "./pages/Tasks";
+import React from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { ThemeProvider } from './context/ThemeContext';
+import Layout from './components/Layout';
 
-export default function App() {
+// Will create these pages next
+import Dashboard from './pages/Dashboard';
+import Tasks from './pages/Tasks';
+
+// Placeholders for other pages
+const Placeholder = ({ title }) => <div className="flex items-center justify-center h-full"><h1 className="text-2xl font-outfit text-slate-500">{title}</h1></div>;
+
+const App = () => {
   return (
-    <BrowserRouter>
-      <div style={{ display: "flex" }}>
-        <Sidebar />
-
-        <div style={{ marginLeft: "220px", width: "100%" }}>
-          <Routes>
-            <Route path="/" element={<Dashboard />} />
-            <Route path="/tasks" element={<Tasks />} />
-          </Routes>
-        </div>
-      </div>
-    </BrowserRouter>
+    <ThemeProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            <Route index element={<Dashboard />} />
+            <Route path="tasks" element={<Tasks />} />
+            <Route path="phases" element={<Placeholder title="Campaign Phases" />} />
+            <Route path="analytics" element={<Placeholder title="KPI Analytics" />} />
+            <Route path="team" element={<Placeholder title="Team Management" />} />
+            <Route path="calendar" element={<Placeholder title="Calendar" />} />
+            <Route path="settings" element={<Placeholder title="Settings" />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </ThemeProvider>
   );
-}
+};
+
+export default App;
