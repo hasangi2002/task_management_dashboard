@@ -99,33 +99,6 @@ const TaskModal = ({ isOpen, onClose, onSave, mode = 'create', initialData = nul
             {mode === 'edit' ? 'Edit Task' : 'Create New Task'}
           </h2>
 
-          <div className="mb-5 p-3 bg-red-50/50 dark:bg-red-900/10 border border-red-500/20 rounded-lg space-y-2">
-            <label className="text-xs font-semibold text-red-600 dark:text-red-400 uppercase flex items-center gap-1.5">
-              <Sparkles className="w-3.5 h-3.5" />
-              Quick-fill with AI
-            </label>
-            <div className="flex gap-2">
-              <input
-                type="text"
-                placeholder="e.g. post about trailer reactions"
-                className="flex-1 bg-white dark:bg-slate-900/50 border border-border rounded-lg px-3 py-2 text-sm text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-red-600/20"
-                value={roughIdea}
-                onChange={(e) => setRoughIdea(e.target.value)}
-                onKeyDown={(e) => { if (e.key === 'Enter') { e.preventDefault(); handleGenerate(); } }}
-              />
-              <button
-                type="button"
-                onClick={handleGenerate}
-                disabled={generating}
-                className="shrink-0 bg-red-600 hover:bg-red-700 disabled:opacity-60 text-white px-3 py-2 rounded-lg text-sm font-medium transition-colors flex items-center gap-1.5"
-              >
-                {generating ? <Loader2 className="w-4 h-4 animate-spin" /> : <Sparkles className="w-4 h-4" />}
-                Generate
-              </button>
-            </div>
-            {generateError && <p className="text-xs text-red-500">{generateError}</p>}
-          </div>
-
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="space-y-1">
               <label className="text-xs font-semibold text-slate-500 uppercase">Task Title</label>

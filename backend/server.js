@@ -20,7 +20,7 @@ connectDB();
 
 app.use(cors());
 app.use(express.json());
-
+// Apply stricter limiting to auth routes, general limiting to everything else
 app.use('/api/auth', authLimiter);
 app.use('/api', generalLimiter);
 
