@@ -64,6 +64,13 @@ const updateProject = async (req, res) => {
 const addAdminToProject = async (req, res) => {
   try {
     const { email } = req.body;
+
+    // Reject anything that isn't a plain string — prevents NoSQL operator
+    // injection (e.g. sending { "$ne": null } instead of a real email).
+    if (typeof email !== 'string' || !email.trim()) {
+      return res.status(400).json({ message: 'A valid email is required' });
+    }
+
     const admin = await Admin.findOne({ email });
     if (!admin) return res.status(404).json({ message: 'No admin account found with that email' });
 

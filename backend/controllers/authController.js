@@ -11,6 +11,15 @@ const registerAdmin = async (req, res) => {
     
     const { name, email, password, setupCode } = req.body;
 
+    if (
+      typeof name !== 'string' || !name.trim() ||
+      typeof email !== 'string' || !email.trim() ||
+      typeof password !== 'string' || !password ||
+      typeof setupCode !== 'string' || !setupCode
+    ) {
+      return res.status(400).json({ message: 'Name, email, password, and setup code are required' });
+    }
+
     if (!name || !email || !password || !setupCode) {
       return res.status(400).json({ message: 'Name, email, password, and setup code are required' });
     }
@@ -36,6 +45,11 @@ const registerAdmin = async (req, res) => {
 const login = async (req, res) => {
   try {
     const { email, password } = req.body;
+
+    if (typeof email !== 'string' || !email.trim() || typeof password !== 'string' || !password) {
+      return res.status(400).json({ message: 'Email and password are required' });
+    }
+
     if (!email || !password) {
       return res.status(400).json({ message: 'Email and password are required' });
     }
